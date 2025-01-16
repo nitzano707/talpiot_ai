@@ -1,223 +1,166 @@
-import React, { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Plus, Minus } from 'lucide-react';
-
-const FAQItem = ({ item, isOpen, onToggle }) => (
-  <div className="border rounded-lg overflow-hidden bg-white shadow-md">
-    <button
-      onClick={() => onToggle(item.id)}
-      className="w-full flex justify-between items-center p-3 md:p-4 hover:bg-[#e0e5ec] transition-colors duration-200"
-    >
-      <span className="text-base md:text-lg font-medium text-[#3c6c93] text-right flex-grow pr-2">
-        {item.question}
-      </span>
-      <span className="flex-shrink-0 mr-2">
-        {isOpen ? 
-          <Minus className="text-[#3c6c93] w-5 h-5 md:w-6 md:h-6" /> : 
-          <Plus className="text-[#3c6c93] w-5 h-5 md:w-6 md:h-6" />
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תקנון שימוש ב-AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
         }
-      </span>
-    </button>
-    {isOpen && (
-      <div className="p-3 md:p-4 border-t bg-[#e0e5ec]">
-        <p className="whitespace-pre-line text-gray-700 text-sm md:text-base leading-relaxed">
-          {item.answer}
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            font-size: 1.3em;
+            margin-top: 20px;
+            color: #004080;
+            border-bottom: 2px solid #004080;
+            padding-bottom: 5px;
+        }
+        .accordion {
+            margin: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .accordion h3 {
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px;
+            background: #f1f1f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+        }
+        .accordion h3:hover {
+            background: #e1e1e1;
+        }
+        .accordion .content {
+            display: none;
+            padding: 10px;
+            background: #fafafa;
+            border-radius: 5px;
+        }
+        .plus {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #004080;
+        }
+        .download-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .download-link a {
+            color: #004080;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>תקנון שימוש ב-AI</header>
+    <div class="container">
+        <!-- רציונל -->
+        <div class="section-title">רציונל התקנון</div>
+        <p>
+            השימוש בבינה מלאכותית (AI) הפך לחלק בלתי נפרד מחיי היומיום, כולל תחומי המחקר, ההוראה והלמידה. 
+            מכללת תלפיות מחויבת להכין את הסטודנטים ואת הסגל האקדמי לשימוש מושכל, אתי ומודע בטכנולוגיות AI תוך שמירה על יושרה אקדמית ופיתוח חשיבה ביקורתית.
         </p>
-      </div>
-    )}
-  </div>
-);
 
-const AIPolicyPage = () => {
-  const [openItems, setOpenItems] = useState({});
-
-  const toggleItem = (id) => {
-    setOpenItems(prev => ({...prev, [id]: !prev[id]}));
-  };
-
-  const rationaleText = `
-    בשנים האחרונות השימוש בבינה המלאכותית הפך משמעותי ובלתי נמנע בכל תחומי החיים. הטכנולוגיה שלו מתפתחת בקצב מואץ כולל בתחומי המחקר, ההוראה והלמידה. תלפיות, המכללה לחינוך מודעת לחשיבות שיש בהטמעת טכנולוגיות חדשות ולוקחת על עצמה את האתגר בהכנת הסטודנטים.ות לעולם המשתנה.
-
-    אחד האתגרים העומדים בפנינו הוא ללמד את הסטודנטים.ות כיצד לעשות שימוש בכלי הבינה המלאכותית מבלי לוותר על למידה משמעותית ועל היושרה האקדמית, תוך פיתוח גישה ביקורתית כלפי אמינות המידע המתקבל ואיכות תוצריה.
-
-    נוסף על כך, מדינת ישראל שמה לה ליעד להטמיע את השימוש בבינה מלאכותית באופן אחראי ואתי, כפי שבא לידי ביטוי בהנחיות משרד החינוך ומשרדי ממשלה נוספים.
-  `;
-
-  const teacherFAQ = [
-    {
-      id: 't1',
-      question: 'מהן האפשרויות העומדות בפני לשילוב AI בקורס?',
-      answer: `ישנן שלוש אפשרויות:
-
-1. התרת שימוש ללא מגבלות
-2. התרת שימוש עם מגבלות מוגדרות מראש
-3. איסור מוחלט על השימוש (בכפוף לאישור ראש התוכנית)
-
-ההחלטה על אופי השימוש היא בסמכותך הבלעדית, באישור ראש החוג/תכנית.`
-    },
-    {
-      id: 't2',
-      question: 'מה נדרש ממני לציין בסילבוס לגבי השימוש ב-AI?',
-      answer: `עליך להגדיר בסילבוס:
-• כללי השימוש המותרים במטלות הקורס
-• הרציונל מאחורי ההחלטה (למה אסור/מותר)
-• אופן האזכור הנדרש של תוצרי הבינה המלאכותית במטלות
-• ההשלכות של שימוש שלא על פי ההנחיות`
-    },
-    {
-      id: 't3',
-      question: 'אילו דרישות חלות עלי כאשר אני מתיר שימוש ב-AI?',
-      answer: `במקרה של היתר שימוש ב-AI, עליך:
-• לתאם ציפיות עם הסטודנטים לגבי אופן השימוש
-• להדריך לגבי כלים מתאימים ולהדגים בכיתה
-• להדגיש את מגבלות הכלים והטיותיהם
-• להבהיר את אחריות הסטודנט לאימות המידע
-• להתאים את היקף המטלות לרמת השימוש המותרת
-• לוודא שמירה על למידה משמעותית`
-    },
-    {
-      id: 't4',
-      question: 'אילו דרכים מומלצות לשילוב AI במטלות?',
-      answer: `דוגמאות לשימושים אפשריים:
-• איסוף מידע ראשוני וסיעור מוחין
-• הצעות לנושאי כתיבה
-• בניית שלד לעבודה
-• הגהה וניסוח
-• יצירת תוצרים ויזואליים
-• בניית כלי מחקר
-• סיכום ואינטגרציה של מקורות`
-    }
-  ];
-
-  const studentFAQ = [
-    {
-      id: 's1',
-      question: 'מה הם הכללים הבסיסיים לשימוש ב-AI בקורסים?',
-      answer: `• השימוש ב-AI תלוי בהנחיות המרצה בכל קורס
-• חובה לקרוא את הסילבוס וההנחיות הספציפיות לכל מטלה
-• שימוש בניגוד להנחיות יגרור זימון לוועדת משמעת
-• יש לציין כל שימוש ב-AI בפסקת I-AI`
-    },
-    {
-      id: 's2',
-      question: 'מהי פסקת I-AI וכיצד יש לכתוב אותה?',
-      answer: `בכל תוצר שנעזרת בו ב-AI, עליך להוסיף בסופו פסקת I-AI הכוללת:
-• פירוט מדויק של אופן השימוש בכלי AI
-• רפלקציה על תרומת השימוש ללמידה שלך
-• תיאור תהליך העבודה והפרומפטים שהשתמשת בהם
-• הביטוי האישי שלך בתוך העבודה`
-    },
-    {
-      id: 's3',
-      question: 'מהם העקרונות האתיים לשימוש ב-AI?',
-      answer: `• שמירה על יושרה אקדמית ושקיפות מלאה
-• בדיקה וביקורת של המידע המתקבל מ-AI
-• הצלבת מידע עם מקורות נוספים
-• שמירה על פרטיות וזכויות יוצרים
-• הימנעות מהזנת מידע אישי או רגיש
-• פיתוח חשיבה עצמאית לצד השימוש בכלים`
-    },
-    {
-      id: 's4',
-      question: 'מהי המשמעות של שימוש ב-AI בהקשר המקצועי?',
-      answer: `• שימוש ב-AI הוא כלי תומך בלמידה, לא תחליף ללמידה
-• חשוב לפתח מיומנויות אישיות ומקצועיות
-• עליך להיות מסוגל להסביר ולהציג את עבודתך
-• כאיש חינוך לעתיד, חשוב להבין את הכלי ומגבלותיו
-• האחריות המקצועית מחייבת הבנה מעמיקה של החומר`
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-[#e0e5ec]" dir="rtl">
-      {/* Top Navigation Bar */}
-      <nav className="bg-[#3c6c93] text-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex justify-between items-center h-16 md:h-20">
-            <img src="/api/placeholder/150/50" alt="לוגו תלפיות" className="h-12 md:h-16" />
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Header */}
-      <header className="bg-[#3c6c93] text-white py-8 md:py-16">
-        <div className="container mx-auto px-4 lg:px-8">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-2 md:mb-4 font-heebo">
-            תקנון שימוש בבינה מלאכותית
-          </h1>
-          <h2 className="text-xl md:text-2xl text-center font-heebo">
-            מכללת תלפיות
-          </h2>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 lg:px-8 py-6 md:py-8">
-        {/* Rationale Section */}
-        <section className="mb-8 md:mb-12">
-          <Card className="p-4 md:p-6 border-none bg-white shadow-lg">
-            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-[#3c6c93] font-heebo">
-              רציונל
-            </h2>
-            <div className="prose max-w-none text-gray-700 text-base md:text-lg space-y-4">
-              <p className="whitespace-pre-line">{rationaleText}</p>
+        <!-- שאלות ותשובות למרצים -->
+        <div class="section-title">שאלות ותשובות למרצים</div>
+        <div class="accordion">
+            <h3>מהן האפשרויות העומדות בפני לשילוב AI בקורס? <span class="plus">+</span></h3>
+            <div class="content">
+                <p>ישנן שלוש אפשרויות:</p>
+                <ul>
+                    <li>התרת שימוש ללא מגבלות</li>
+                    <li>התרת שימוש עם מגבלות מוגדרות מראש</li>
+                    <li>איסור מוחלט על השימוש (בכפוף לאישור ראש התוכנית)</li>
+                </ul>
+                <p>ההחלטה על אופי השימוש היא בסמכותך הבלעדית, באישור ראש החוג/תכנית.</p>
             </div>
-          </Card>
-        </section>
-
-        {/* Guidelines for Teachers */}
-        <section className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[#3c6c93] border-b pb-2 font-heebo">
-            הנחיות למרצים
-          </h2>
-          <div className="space-y-3 md:space-y-4">
-            {teacherFAQ.map((item) => (
-              <FAQItem 
-                key={item.id}
-                item={item}
-                isOpen={openItems[item.id]}
-                onToggle={toggleItem}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Guidelines for Students */}
-        <section className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-[#3c6c93] border-b pb-2 font-heebo">
-            הנחיות לסטודנטים
-          </h2>
-          <div className="space-y-3 md:space-y-4">
-            {studentFAQ.map((item) => (
-              <FAQItem 
-                key={item.id}
-                item={item}
-                isOpen={openItems[item.id]}
-                onToggle={toggleItem}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Link to Full Policy */}
-        <div className="text-center mt-8 md:mt-12">
-          <a 
-            href="#"
-            className="inline-block bg-[#3c6c93] text-white px-6 md:px-8 py-2 md:py-3 rounded text-base md:text-lg font-medium hover:bg-opacity-90 transition-colors duration-200"
-          >
-            התקנון המלא
-          </a>
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-[#3c6c93] text-white py-6 md:py-8 mt-8 md:mt-12">
-        <div className="container mx-auto px-4 text-center text-sm md:text-base">
-          <p>© כל הזכויות שמורות למכללת תלפיות</p>
+        <div class="accordion">
+            <h3>מה נדרש ממני לציין בסילבוס לגבי השימוש ב-AI? <span class="plus">+</span></h3>
+            <div class="content">
+                <p>עליך להגדיר בסילבוס:</p>
+                <ul>
+                    <li>כללי השימוש המותרים במטלות הקורס</li>
+                    <li>הרציונל מאחורי ההחלטה (למה אסור/מותר)</li>
+                    <li>אופן האזכור הנדרש של תוצרי הבינה המלאכותית במטלות</li>
+                    <li>ההשלכות של שימוש שלא על פי ההנחיות</li>
+                </ul>
+            </div>
         </div>
-      </footer>
+
+        <!-- שאלות ותשובות לסטודנטים -->
+        <div class="section-title">שאלות ותשובות לסטודנטים</div>
+        <div class="accordion">
+            <h3>מה הם הכללים הבסיסיים לשימוש ב-AI בקורסים? <span class="plus">+</span></h3>
+            <div class="content">
+                <p>
+                    - השימוש ב-AI תלוי בהנחיות המרצה בכל קורס.<br>
+                    - חובה לקרוא את הסילבוס וההנחיות הספציפיות לכל מטלה.<br>
+                    - שימוש בניגוד להנחיות יגרור זימון לוועדת משמעת.<br>
+                    - יש לציין כל שימוש ב-AI בפסקת I-AI.
+                </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <h3>מהי פסקת I-AI וכיצד יש לכתוב אותה? <span class="plus">+</span></h3>
+            <div class="content">
+                <p>
+                    פסקת I-AI היא פסקה בסיום העבודה, המתארת:
+                    <ul>
+                        <li>אופן השימוש בכלי AI</li>
+                        <li>רפלקציה על תרומת השימוש ללמידה</li>
+                        <li>תיאור תהליך העבודה והפרומפטים שנעשה בהם שימוש</li>
+                        <li>הביטוי האישי של הסטודנט בתוך העבודה</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <!-- קישור להורדת התקנון -->
+        <div class="download-link">
+            <p><a href="#" download>לחץ כאן להורדת התקנון המלא</a></p>
+        </div>
     </div>
-  );
-};
-
-export default AIPolicyPage;
+    <script>
+        document.querySelectorAll('.accordion h3').forEach(item => {
+            item.addEventListener('click', () => {
+                const content = item.nextElementSibling;
+                const plus = item.querySelector('.plus');
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                    plus.textContent = "+";
+                } else {
+                    content.style.display = "block";
+                    plus.textContent = "-";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
